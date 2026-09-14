@@ -1,0 +1,43 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "db:migrate": "npx prisma migrate dev",
+    "db:generate": "npx prisma generate",
+    "db:studio": "npx prisma studio"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^6.19.2",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.20",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
+    "nodemailer": "^7.0.12",
+    "pg": "^8.16.3",
+    "simple-hl7": "^3.3.0",
+    "uuid": "^13.0.0",
+    "yup": "^1.7.1",
+    "zk-attendance-sdk": "^2.1.0"
+  },
+  "devDependencies": {
+    "node-mocks-http": "^1.17.2",
+    "nodemon": "^3.1.14",
+    "prisma": "^6.19.2"
+  }
+}

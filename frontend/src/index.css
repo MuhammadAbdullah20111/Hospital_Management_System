@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #14b8a6;
+  /* Teal 500 */
+  --color-brand-secondary: #0d9488;
+  /* Teal 600 */
+  --color-brand-dark: #0f172a;
+  --color-brand-accent: #f43f5e;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-teal-500 to-emerald-400;
+  }
+
+  .bg-vibrant {
+    @apply bg-linear-to-br from-teal-600 to-emerald-500;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+input[type="date"],
+input[type="time"] {
+  cursor: pointer;
+  accent-color: var(--color-brand-secondary, #0d9488);
+  color-scheme: light;
+}
+
+/* Style the native calendar/clock picker indicator icons to match the brand teal color */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 4px;
+  filter: invert(44%) sepia(87%) saturate(1471%) hue-rotate(142deg) brightness(92%) contrast(92%); /* Approximates Teal 600 (#0d9488) */
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  background-color: rgba(20, 184, 166, 0.15); /* Light teal-100 style background on hover */
+  transform: scale(1.05);
+}
+
+/* Style the text/field wrapper inside the date inputs */
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+  background: transparent;
+}
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-text {
+  color: #94a3b8; /* slate-400 */
+  padding: 0 0.1em;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  color: #334155; /* slate-700 */
+  border-radius: 4px;
+  padding: 0 3px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field:focus,
+input[type="date"]::-webkit-datetime-edit-day-field:focus,
+input[type="date"]::-webkit-datetime-edit-year-field:focus,
+input[type="time"]::-webkit-datetime-edit-hour-field:focus,
+input[type="time"]::-webkit-datetime-edit-minute-field:focus,
+input[type="time"]::-webkit-datetime-edit-ampm-field:focus {
+  background-color: var(--color-brand-secondary, #0d9488); /* teal-600 */
+  color: white !important;
+  outline: none;
+}
+
+/* Ensure absolute positioned calendar/clock icons inside relative input containers do not block clicks */
+.relative:has(input[type="date"]) > span.absolute,
+.relative:has(input[type="time"]) > span.absolute {
+  z-index: 10;
+}
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #14b8a6;
+  /* Teal 500 */
+  --color-brand-secondary: #0d9488;
+  /* Teal 600 */
+  --color-brand-dark: #0f172a;
+  --color-brand-accent: #f43f5e;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-teal-500 to-emerald-400;
+  }
+
+  .bg-vibrant {
+    @apply bg-linear-to-br from-teal-600 to-emerald-500;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+input[type="date"],
+input[type="time"] {
+  cursor: pointer;
+  accent-color: var(--color-brand-secondary, #0d9488);
+  color-scheme: light;
+}
+
+/* Style the native calendar/clock picker indicator icons to match the brand teal color */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 4px;
+  filter: invert(44%) sepia(87%) saturate(1471%) hue-rotate(142deg) brightness(92%) contrast(92%); /* Approximates Teal 600 (#0d9488) */
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  background-color: rgba(20, 184, 166, 0.15); /* Light teal-100 style background on hover */
+  transform: scale(1.05);
+}
+
+/* Style the text/field wrapper inside the date inputs */
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+  background: transparent;
+}
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-text {
+  color: #94a3b8; /* slate-400 */
+  padding: 0 0.1em;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  color: #334155; /* slate-700 */
+  border-radius: 4px;
+  padding: 0 3px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field:focus,
+input[type="date"]::-webkit-datetime-edit-day-field:focus,
+input[type="date"]::-webkit-datetime-edit-year-field:focus,
+input[type="time"]::-webkit-datetime-edit-hour-field:focus,
+input[type="time"]::-webkit-datetime-edit-minute-field:focus,
+input[type="time"]::-webkit-datetime-edit-ampm-field:focus {
+  background-color: var(--color-brand-secondary, #0d9488); /* teal-600 */
+  color: white !important;
+  outline: none;
+}
+
+/* Ensure absolute positioned calendar/clock icons inside relative input containers do not block clicks */
+.relative:has(input[type="date"]) > span.absolute,
+.relative:has(input[type="time"]) > span.absolute {
+  z-index: 10;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide number input spinners globally */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
