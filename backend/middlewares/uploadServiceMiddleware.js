@@ -2,10 +2,16 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-// Ensure upload directory exists
+// Ensure upload directory exists.
+// NOTE: On Vercel the filesystem is read-only (/var/task) so mkdir will fail.
+// The try-catch prevents a crash at import time — uploads are not persistent on Vercel.
 const uploadDir = path.join(process.cwd(), 'uploads', 'services');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('[Upload] Could not create services upload directory (expected on Vercel):', err.message);
 }
 
 // Multer storage config

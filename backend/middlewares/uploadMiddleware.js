@@ -2,10 +2,17 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-// Ensure upload directory exists - Use a robust absolute path approach based on process.cwd()
+// Ensure upload directory exists.
+// NOTE: On Vercel the filesystem is read-only (/var/task) so mkdir will fail.
+// The try-catch prevents a crash at import time — uploads are not persistent on Vercel.
+// For production file storage migrate to Vercel Blob / Cloudinary / AWS S3.
 const uploadDir = path.join(process.cwd(), 'uploads', 'profiles');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('[Upload] Could not create profiles upload directory (expected on Vercel):', err.message);
 }
 
 // Multer storage config
