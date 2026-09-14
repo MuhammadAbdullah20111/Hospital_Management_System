@@ -70,6 +70,10 @@ app.get('/api/', (req, res) => {
   return ApiResponse.success(res, 'Welcome to MKMC Backend API (Standardized)');
 });
 
+app.get('/', (req, res) => {
+  return ApiResponse.success(res, 'MKMC Backend API is running');
+});
+
 // ---------------------------------------------------------------------------
 // Global error handler — must be registered after all routes
 // ---------------------------------------------------------------------------
