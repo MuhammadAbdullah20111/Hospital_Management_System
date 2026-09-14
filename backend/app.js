@@ -20,36 +20,15 @@ const app = express();
 // Allowed origins: local dev frontend + production Vercel frontend.
 // FRONTEND_URL is set as a Vercel environment variable in the backend project.
 // ---------------------------------------------------------------------------
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null,
-].filter(Boolean);
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl, Postman, server-to-server)
-      if (!origin) return callback(null, true);
-      
-      const cleanOrigin = origin.replace(/\/$/, '');
-      
-      // Allow allowedOrigins list or any vercel.app domain for ease of deployment
-      if (
-        allowedOrigins.includes(cleanOrigin) ||
-        cleanOrigin.endsWith('.vercel.app')
-      ) {
-        return callback(null, true);
-      }
-      
-      return callback(null, true); // Fallback allow to prevent deployment CORS blocking
-    },
+    origin: true,
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    optionsSuccessStatus: 204,
   })
 );
+app.options('*', cors());
 
 
 app.use(helmet({ crossOriginResourcePolicy: false }));

@@ -35,11 +35,11 @@
     "simple-hl7": "^3.3.0",
     "uuid": "^13.0.0",
     "yup": "^1.7.1",
-    "zk-attendance-sdk": "^2.1.0"
+    "zk-attendance-sdk": "^2.1.0",
+    "prisma": "^6.19.2"
   },
   "devDependencies": {
     "node-mocks-http": "^1.17.2",
-    "nodemon": "^3.1.14",
-    "prisma": "^6.19.2"
+    "nodemon": "^3.1.14"
   }
 }
