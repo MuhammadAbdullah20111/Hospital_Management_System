@@ -25,8 +25,11 @@ pool.on('connect', () => {
 });
 
 pool.on('error', (err) => {
-  console.error('Unexpected error on idle client', err);
-  process.exit(-1);
+  // Log the error but do NOT call process.exit() here.
+  // In a Vercel serverless environment, process.exit() would terminate the
+  // entire runtime container making the function unrecoverable.
+  // The error will surface naturally on the next request.
+  console.error('Unexpected error on idle PostgreSQL client', err);
 });
 
 export const query = (text, params) => pool.query(text, params);

@@ -1,40 +1,29 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import dotenv from 'dotenv';
-import path from 'path';
-import { pool } from './config/database.js';
-import ApiResponse from './utils/ApiResponse.js';
-import errorHandler from './middlewares/errorHandler.js';
+/**
+ * Local Development / Traditional Server Entry Point
+ * ────────────────────────────────────────────────────
+ * This file is used for local development (npm run dev / npm start) and
+ * any traditional VPS/server deployment where a persistent process is available.
+ *
+ * It imports the shared Express application from app.js and adds:
+ *   - database connection with retry logic (suitable for a long-running process)
+ *   - startup permission migrations
+ *   - app.listen() on the configured PORT
+ *   - startBedAutomation() background service
+ *   - periodic biometric device synchronization via setInterval
+ *
+ * For Vercel serverless deployment, see backend/api/index.js instead.
+ */
 
-import adminRoutes from './routes/admin/index.js';
-import staffRoutes from './routes/staff/index.js';
-import webRoutes from './routes/web/index.js';
-import publicRoutes from './routes/publicRoutes.js';
-import { startBedAutomation } from './utils/bedAutomation.js';
+import app from './app.js';
+import dotenv from 'dotenv';
+import { pool } from './config/database.js';
 import prisma from './config/prismaClient.js';
+import { startBedAutomation } from './utils/bedAutomation.js';
 import BiometricService from './services/biometricService.js';
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 5000;
-
-app.use(helmet({ crossOriginResourcePolicy: false }));
-app.use(cors());
-app.use(express.json());
-
-// Serve uploads directory statically
-app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
-
-app.use('/api/admin', adminRoutes);
-app.use('/api/staff', staffRoutes);
-app.use('/api/web', webRoutes);
-app.use('/api', publicRoutes);
-
-app.get('/api/', (req, res) => {
-  return ApiResponse.success(res, 'Welcome to MKMC Backend API (Standardized)');
-});
 
 const runStartupMigrations = async () => {
   try {
@@ -108,7 +97,8 @@ const startServer = async () => {
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
-      // Start background services
+
+      // Start background services (local/persistent server only)
       startBedAutomation();
 
       // Periodic Biometric device logs sync (every 30 seconds to keep system database synced within 1 minute)
@@ -126,7 +116,5 @@ const startServer = async () => {
     process.exit(1);
   }
 };
-
-app.use(errorHandler);
 
 startServer();
