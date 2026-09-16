@@ -14,7 +14,11 @@ const DashboardLayout = () => {
         sidebarOptions: [],
         isLoading: true
     });
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
+
+    const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+    const closeSidebar = () => setIsSidebarOpen(false);
 
     useEffect(() => {
         const fetchLayoutData = async () => {
@@ -69,9 +73,9 @@ const DashboardLayout = () => {
 
     return (
         <div className="flex min-h-screen flex-col bg-teal-50">
-            <Header user={layoutData.user} />
+            <Header user={layoutData.user} onToggleSidebar={toggleSidebar} />
 
-            <Sidebar menuItems={layoutData.sidebarOptions} />
+            <Sidebar menuItems={layoutData.sidebarOptions} isOpen={isSidebarOpen} onClose={closeSidebar} />
 
             <main className="flex-1 mt-14 p-4 sm:ml-64">
                 <div className="mx-auto min-h-[calc(100vh-8rem)] w-full max-w-7xl p-4">

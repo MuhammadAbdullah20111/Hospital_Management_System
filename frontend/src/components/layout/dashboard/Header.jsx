@@ -1,4 +1,4 @@
-import { Bell, User, LogOut, Settings, ChevronDown } from "lucide-react";
+import { Bell, User, LogOut, Settings, ChevronDown, Menu, X } from "lucide-react";
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { adminLogoutAPI } from "../../../api/admin/auth";
@@ -6,7 +6,7 @@ import { removeFromLocalStorage } from "../../../helpers/localStorageFile";
 import { toast } from "react-hot-toast";
 import ApiService from "../../../services/ApiService";
 
-const Header = ({ user }) => {
+const Header = ({ user, onToggleSidebar }) => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
 
     const navigate = useNavigate();
@@ -51,7 +51,15 @@ const Header = ({ user }) => {
         <nav className="fixed top-0 z-30 w-full border-b border-slate-200 bg-white sm:pl-64">
             <div className="px-3 py-3 lg:px-5">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center justify-start rtl:justify-end">
+                    <div className="flex items-center justify-start gap-3 rtl:justify-end">
+                        {/* Hamburger menu button - visible only on mobile */}
+                        <button
+                            onClick={onToggleSidebar}
+                            className="inline-flex items-center rounded-lg p-2 text-sm text-slate-500 hover:bg-teal-50 hover:text-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-200 sm:hidden transition-colors duration-200"
+                            aria-label="Toggle sidebar"
+                        >
+                            <Menu className="h-6 w-6" />
+                        </button>
                         <h2 className="text-xl font-bold text-teal-600 sm:hidden">MKMC</h2>
                     </div>
 
