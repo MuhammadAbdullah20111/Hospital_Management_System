@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import ApiResponse from './utils/ApiResponse.js';
 import errorHandler from './middlewares/errorHandler.js';
+import { pool } from './config/database.js';
 
 import adminRoutes from './routes/admin/index.js';
 import staffRoutes from './routes/staff/index.js';
@@ -65,8 +66,18 @@ app.use('/api/staff', staffRoutes);
 app.use('/api/web', webRoutes);
 app.use('/api', publicRoutes);
 
-app.get('/api/', (req, res) => {
-  return ApiResponse.success(res, 'Welcome to MKMC Backend API (Standardized)');
+app.get('/api/', async (req, res) => {
+  let dbStatus = { connected: false, message: 'Disconnected' };
+  try {
+    await pool.query('SELECT 1');
+    dbStatus = { connected: true, message: 'Connected' };
+  } catch (error) {
+    dbStatus = { connected: false, error: error.message };
+  }
+
+  return ApiResponse.success(res, 'Welcome to MKMC Backend API (Standardized)', {
+    database: dbStatus,
+  });
 });
 
 app.get('/', (req, res) => {
