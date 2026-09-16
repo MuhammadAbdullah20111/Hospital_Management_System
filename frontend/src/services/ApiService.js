@@ -15,9 +15,19 @@ class ApiService {
 
         this.axiosInstance.interceptors.request.use(
             (config) => {
-                const token = getFromLocalStorage("token");
-                if (token) {
-                    config.headers["Authorization"] = `Bearer ${token}`;
+                // Public endpoints shouldn't send Authorization token
+                const isPublicRoute = config.url?.startsWith('/web') || 
+                                     config.url?.startsWith('/contact') || 
+                                     config.url?.startsWith('/services') || 
+                                     config.url?.includes('/auth/login');
+
+                if (!isPublicRoute) {
+                    const token = getFromLocalStorage("token");
+                    if (token) {
+                        config.headers["Authorization"] = `Bearer ${token}`;
+                    }
+                } else {
+                    delete config.headers["Authorization"];
                 }
                 return config;
             },
